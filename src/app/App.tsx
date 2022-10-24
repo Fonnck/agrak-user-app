@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { NextUIProvider, createTheme } from '@nextui-org/react'
-import { Route } from 'wouter';
+import { Route, Switch } from 'wouter';
 
 
 import store from '../redux/store'
@@ -10,6 +10,7 @@ import { Nav } from '../components/ui/Nav';
 import { UserControl } from '../components/user/UserControl';
 import { Provider } from 'react-redux';
 import './App.css'
+import { NotFound } from '../components/ui/NotFound';
 
 
 const darkTheme = createTheme({
@@ -22,7 +23,7 @@ const darkTheme = createTheme({
 function App() {
 
   useEffect(() => {
-    window.history.pushState(null, '', '/home');
+    /* window.history.pushState(null, '', '/home'); */
   }, [])
 
 
@@ -33,12 +34,17 @@ function App() {
           <Nav />
         </div>
         <Layout>
-          <Route path="/home">
-            <Home />
-          </Route>
-          <Route path="/user-control">
-            <UserControl />
-          </Route>
+          <Switch>
+            <Route path="/home">
+              <Home />
+            </Route>
+            <Route path="/user-control">
+              <UserControl />
+            </Route>
+            <Route>
+              <NotFound />
+            </Route>
+          </Switch>
         </Layout>
       </NextUIProvider>
     </Provider>

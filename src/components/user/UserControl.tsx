@@ -26,11 +26,11 @@ export const UserControl = () => {
             <div className="card-glass animate__animated animate__backInUp">
                 <Row className="avatar-container">
                     <Image
+                        css={{ maxWidth: '400px' }}
                         className="avatar-select"
-                        height={150}
-                        width={150}
                         src={no_avatar}
                         alt="avatar img"
+                        objectFit='cover'
                     />
                     <div className="avatar-hiden">
                         <Button flat>
@@ -50,6 +50,11 @@ export const UserControl = () => {
                     </Col>
                 </Row>
                 <Input labelPlaceholder="E-mail" />
+                <Row className="center">
+                    <Button flat color="gradient">
+                        CREATE
+                    </Button>
+                </Row>
             </div>
         </div>
     )

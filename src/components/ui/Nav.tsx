@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Navbar, Button, Text, Avatar } from "@nextui-org/react";
 import { useLocation, useRoute } from "wouter";
+import { BiHome } from "react-icons/bi";
+import { AiOutlineUserAdd } from "react-icons/ai";
 
 export const Nav = () => {
 
@@ -37,16 +39,6 @@ export const Nav = () => {
                     </Text>
                 </Navbar.Brand>
                 <Navbar.Content hideIn="xs" variant="highlight-rounded">
-                    {!match &&
-                        <Button
-                            auto
-                            color="warning"
-                            flat
-                            onClick={() => setLocation('/home')}
-                        >
-                            Go Home
-                        </Button>
-                    }
                     {match &&
                         <Button
                             auto
@@ -72,9 +64,26 @@ export const Nav = () => {
                 </Navbar.Content>
                 <Navbar.Content>
                     <Navbar.Item>
-                        <Button auto flat href="#" color="success" onClick={() => setLocation('/user-control')}>
-                            Create
-                        </Button>
+                        {match ?
+                            <Button
+                                auto
+                                flat
+                                color="success"
+                                icon={<AiOutlineUserAdd />}
+                                onClick={() => setLocation('/user-control')}>
+                                Create
+                            </Button>
+                            :
+                            <Button
+                                auto
+                                color="warning"
+                                flat
+                                icon={<BiHome />}
+                                onClick={() => setLocation('/home')}
+                            >
+                                Go Home
+                            </Button>
+                        }
                     </Navbar.Item>
                 </Navbar.Content>
             </Navbar>
