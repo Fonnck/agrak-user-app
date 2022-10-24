@@ -135,3 +135,12 @@
   grid-gap: 10px;
   grid-template-columns: repeat(auto-fill, 80px);
 }
+
+.zoom {
+  transition: transform 0.2s;
+  margin: 10px;
+}
+
+.zoom:hover {
+  transform: scale(1.3);
+}

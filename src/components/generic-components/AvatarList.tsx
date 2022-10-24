@@ -1,15 +1,18 @@
-import { Avatar, Tooltip } from '@nextui-org/react';
-import { useEffect, useState } from 'react'
-import { AvatarItem } from '../../interfaces';
+import { FC, useEffect, useState } from 'react'
+import { Avatar } from '@nextui-org/react';
 
-export const AvatarList = () => {
+import { AvatarItem } from '../../interfaces';
+interface Props {
+    choose: Function
+}
+
+export const AvatarList: FC<Props> = ({choose}) => {
 
     const [avatarList, setAvatarList] = useState<AvatarItem[]>([]);
 
     useEffect(() => {
         generateAvatarList();
     }, [])
-
 
     /**
      * Generates a list of hundred avatars to choose
@@ -33,15 +36,19 @@ export const AvatarList = () => {
         <div className="center grid-wrap">
             {
                 avatarList.map((avatar: AvatarItem, index) =>
-                    <Tooltip content="Choose Me!" color="success">
-                        <div key={index}>
-                            <Avatar
-                                css={{ cursor: 'pointer' }}
-                                squared
-                                size={'xl'}
-                                src={avatar.src} />
-                        </div>
-                    </Tooltip>
+                    <div key={index}>
+                        <Avatar
+                            className="zoom"
+                            css={{ cursor: 'pointer' }}
+                            squared
+                            size={'xl'}
+                            src={avatar.src}
+                            onClick={() => {
+                                console.log(avatar.index, avatar.src);
+                                choose(avatar.src);
+                            }}
+                        />
+                    </div>
                 )
             }
         </div>

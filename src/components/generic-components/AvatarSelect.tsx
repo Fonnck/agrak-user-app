@@ -4,11 +4,21 @@ import { AvatarList } from "./AvatarList";
 
 
 interface Props {
+    setAvatar: Function;
     setVisible: Function;
     bindings: any; //I could not find the exact type
 }
 
-export const AvatarSelect: FC<Props> = ({ setVisible, bindings }) => {
+export const AvatarSelect: FC<Props> = ({ setVisible, bindings, setAvatar }) => {
+
+    /**
+     * Set state that manipulates avatar img source, and close the modal.
+     * @param src Avatar source selected
+     */
+    const choose = (src: string) => {
+        setAvatar(src);
+        setVisible(false);
+    }
 
     return (
         <Modal
@@ -20,14 +30,14 @@ export const AvatarSelect: FC<Props> = ({ setVisible, bindings }) => {
         >
             <Modal.Header>
                 <Text id="modal-title" size={18}>
-                    Choose an Avatar for you
+                    Choose an Avatar for You
                 </Text>
             </Modal.Header>
             <Modal.Body>
-                <AvatarList />
+                <AvatarList choose={choose}/>
             </Modal.Body>
             <Modal.Footer>
-                <Button auto flat color="error" onClick={() => setVisible(false)}>
+                <Button auto flat color="error" onPress={() => setVisible(false)}>
                     Close
                 </Button>
             </Modal.Footer>

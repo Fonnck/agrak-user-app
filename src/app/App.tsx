@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { NextUIProvider, createTheme } from '@nextui-org/react'
 import { Route, Switch } from 'wouter';
+import { Toaster } from "react-hot-toast";
 
 
 import store from '../redux/store'
@@ -9,8 +10,8 @@ import { Layout } from '../components/generic-components/Layout';
 import { Nav } from '../components/ui/Nav';
 import { UserControl } from '../components/user/UserControl';
 import { Provider } from 'react-redux';
-import './App.css'
 import { NotFound } from '../components/ui/NotFound';
+import './App.css'
 
 
 const darkTheme = createTheme({
@@ -46,6 +47,7 @@ function App() {
             </Route>
           </Switch>
         </Layout>
+        <Toaster position="bottom-right" />
       </NextUIProvider>
     </Provider>
   )
