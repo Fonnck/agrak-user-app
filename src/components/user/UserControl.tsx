@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Button, Card, Col, Image, Input, Row, Text, useSSR } from "@nextui-org/react"
+import { Button, Card, Col, Image, Input, Row, Text, useModal, useSSR } from "@nextui-org/react"
 
 import { User } from "../../interfaces";
 import no_avatar from '../../assets/img/no_avatar.png';
+import { AvatarSelect } from '../generic-components';
 
 export const UserControl = () => {
 
@@ -16,46 +17,51 @@ export const UserControl = () => {
         id: '',
     })
 
+    const { setVisible, bindings } = useModal();
+
     useEffect(() => {
 
     }, [])
 
 
     return (
-        <div style={{ width: '100%', height: 'auto', marginTop: '80px' }}>
-            <div className="card-glass animate__animated animate__backInUp">
-                <Row className="avatar-container">
-                    <Image
-                        css={{ maxWidth: '400px' }}
-                        className="avatar-select"
-                        src={no_avatar}
-                        alt="avatar img"
-                        objectFit='cover'
-                    />
-                    <div className="avatar-hiden">
-                        <Button flat>
-                            Choose an Avatar
+        <>
+            <div style={{ width: '100%', height: 'auto', marginTop: '80px' }}>
+                <div className="card-glass animate__animated animate__backInUp">
+                    <Row className="avatar-container">
+                        <Image
+                            css={{ maxWidth: '400px' }}
+                            className="avatar-select"
+                            src={no_avatar}
+                            alt="avatar img"
+                            objectFit='cover'
+                        />
+                        <div className="avatar-hiden">
+                            <Button flat onClick={() => setVisible(true)}>
+                                Choose an Avatar
+                            </Button>
+                        </div>
+                    </Row>
+                    <Row>
+                        <Text>Please provide the user information</Text>
+                    </Row>
+                    <Row css={{ gap: 15 }}>
+                        <Col>
+                            <Input css={{ width: '100%' }} labelPlaceholder="First Name" />
+                        </Col>
+                        <Col>
+                            <Input css={{ width: '100%' }} labelPlaceholder="Second Name" />
+                        </Col>
+                    </Row>
+                    <Input labelPlaceholder="E-mail" />
+                    <Row className="center">
+                        <Button flat color="gradient">
+                            CREATE
                         </Button>
-                    </div>
-                </Row>
-                <Row>
-                    <Text>Please provide the user information</Text>
-                </Row>
-                <Row css={{ gap: 15 }}>
-                    <Col>
-                        <Input css={{ width: '100%' }} labelPlaceholder="First Name" />
-                    </Col>
-                    <Col>
-                        <Input css={{ width: '100%' }} labelPlaceholder="Second Name" />
-                    </Col>
-                </Row>
-                <Input labelPlaceholder="E-mail" />
-                <Row className="center">
-                    <Button flat color="gradient">
-                        CREATE
-                    </Button>
-                </Row>
+                    </Row>
+                </div>
             </div>
-        </div>
+            <AvatarSelect setVisible={setVisible} bindings={bindings} />
+        </>
     )
 }
