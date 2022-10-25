@@ -15,8 +15,6 @@ const _userServices = new UserServices();
 
 export const UserControl = () => {
 
-    /* const [user, setUser] = useState<User | {}>({}); */
-
     const { Toasty } = ToastAlert();
     const [idUser, setidUser] = useState('-1');
     const [update, setUpdate] = useState(false);
