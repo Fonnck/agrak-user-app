@@ -1,34 +1,45 @@
-import { useEffect, useState } from 'react'
-import { Container, Grid } from "@nextui-org/react";
-import { UserList } from '../generic-components';
+import { useEffect } from 'react'
+import { Loading } from "@nextui-org/react";
+
 import { UserServices } from '../../api/services';
-import { User } from '../../interfaces';
+import { UserList, UserTable } from '../user';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { setUserList } from '../../redux/slices/users.slice';
 
 const _usersService = new UserServices();
 
 export const Home = () => {
 
+    /* const [userList, setUserList] = useState<User[]>([]) */
+    const userList = useAppSelector((state) => state.users.userList);
+    const view = useAppSelector((state) => state.viewSlice.view);
 
-    const [userList, setUserList] = useState<User[]>([])
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
-        getAllUsers();
+        getAllUsers()
     }, [])
 
     const getAllUsers = () => {
-
         _usersService.getUserList()
             .subscribe((resp) => {
-                console.log(resp);
-                setUserList(resp);
+                dispatch(setUserList(resp));
             })
-
     }
 
-
     return (
-        <div style={{marginTop: '100px'}}>
-            <UserList userList={userList} />
+        <div style={{ marginTop: '100px' }}>
+            {userList.length === 0 ?
+                <Loading type="points" size='xl' color="warning" />
+                :
+                (view === 0 ?
+                    <UserList userList={userList} />
+                    :
+                    <UserTable userList={userList} />
+                )
+            }
         </div>
     )
 }
+
+{/*  */ }

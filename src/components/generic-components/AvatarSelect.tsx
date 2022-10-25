@@ -23,6 +23,7 @@ export const AvatarSelect: FC<Props> = ({ setVisible, bindings, setAvatar }) => 
     return (
         <Modal
             scroll
+            blur
             width="600px"
             aria-labelledby="modal-title"
             aria-describedby="modal-description"

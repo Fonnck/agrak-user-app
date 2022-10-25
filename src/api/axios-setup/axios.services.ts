@@ -24,7 +24,7 @@ const patch = <T>(url: string, body: any, queryParams?: object): Observable<T | 
         .pipe(map(result => result.data));
 };
 
-const deleteR = <T>(url: string, id:number): Observable<T | void> => {
+const deleteR = <T>(url: string, id:string): Observable<T | void> => {
     return defer(() => (axiosInstance.delete(`${url}/${id}` )))
         .pipe(map(result => result.data)
     );
