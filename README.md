@@ -9,6 +9,6 @@
 
 # Some considerations 
 * To edit a user through url use: _http://127.0.0.1:5173/user-control/:id/update_ //An example should be _http://127.0.0.1:5173/user-control/21/update_
-* _http://127.0.0.1:5173/ it's the local url that Vite provides to run the project locally, it could change depending of method used to run the project.
+* _http://127.0.0.1:5173/_ it's the local url that Vite provides to run the project locally, it could change depending of method used to run the project.
 
 Thanks. 💻💯
