@@ -2,13 +2,14 @@ import { useEffect, useState } from 'react';
 import { Button, Col, Image, Input, Loading, Row, Text, useModal } from "@nextui-org/react"
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { HiOutlineTrash } from "react-icons/hi";
+import { useLocation } from 'wouter';
 
 import { ToastAlert } from '../generic-components/Toaster'
 import { AvatarSelect } from '../generic-components';
 import { User } from "../../interfaces";
 import no_avatar from '../../assets/img/no_avatar.png';
 import { UserServices } from '../../api/services';
-import { useLocation } from 'wouter';
+import { ConfirmAction } from '../ui/ConfirmAction';
 
 const _userServices = new UserServices();
 
@@ -17,10 +18,12 @@ export const UserControl = () => {
     /* const [user, setUser] = useState<User | {}>({}); */
 
     const { Toasty } = ToastAlert();
+    const [idUser, setidUser] = useState('-1');
     const [update, setUpdate] = useState(false);
     const [spinner, setSpinner] = useState(false);
     const [location, setLocation] = useLocation();
     const [avatar, setAvatar] = useState(no_avatar);
+    const [showConfirm, setShowConfirm] = useState(false);
     const { setVisible, bindings } = useModal();
     const { register, formState: { errors }, handleSubmit, setValue, getValues } = useForm<User>();
 
@@ -29,6 +32,7 @@ export const UserControl = () => {
             setUpdate(true);
             let arrPath: string[] = location.split('/');
             console.log(arrPath[2]);
+            setidUser(arrPath[2]);
             loadUser(arrPath[2]);
         }
     }, [])
@@ -70,6 +74,20 @@ export const UserControl = () => {
                 Toasty({
                     type: "success",
                     message: `User updated successfully`,
+                });
+            })
+    }
+
+    const deleteUser = () => {
+        setSpinner(true)
+        _userServices.deleteUser(idUser)
+            .subscribe((resp) => {
+                setSpinner(false)
+                console.log(resp);
+                setLocation('/home');
+                Toasty({
+                    type: "success",
+                    message: `User deleted successfully`,
                 });
             })
     }
@@ -159,7 +177,7 @@ export const UserControl = () => {
                         <Row className="center">
                             {update &&
                                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: "between", gap: '1rem' }}>
-                                    <Button shadow color="error" icon={<HiOutlineTrash />}>
+                                    <Button shadow color="error" icon={<HiOutlineTrash />} onPress={() => setShowConfirm(true)}>
                                         {!spinner ?
                                             'DELETE'
                                             :
@@ -187,6 +205,7 @@ export const UserControl = () => {
                 </form>
             </div>
             <AvatarSelect setAvatar={setAvatar} setVisible={setVisible} bindings={bindings} />
+            { showConfirm && <ConfirmAction text='¿Are you sure to proceed?' action={deleteUser} show={showConfirm} setShow={setShowConfirm}/>}
         </>
     )
 }

@@ -15,7 +15,7 @@ export const UserInfo: FC<Props> = ({ user }) => {
 
     return (
         <Grid key={user.id} sm={6} md={4} lg={4} xl={4}>
-            <Card className="animate__animated animate__backInUp">
+            <Card className="animate__animated animate__backInUp" css={{maxHeight: '375px'}}>
                 <Card.Body css={{ p: 0 }}>
                     <Card.Image
                         src={user.avatar}
@@ -37,7 +37,7 @@ export const UserInfo: FC<Props> = ({ user }) => {
                 >
                     <Row>
                         <Col>
-                            <Text h3 color="black">
+                            <Text h4 color="black">
                                 {user.first_name} - {user.second_name}
                             </Text>
                             <Text size={12} weight="bold" transform="uppercase" color="black">
