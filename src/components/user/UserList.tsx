@@ -3,7 +3,8 @@ import { Grid } from "@nextui-org/react"
 import 'animate.css';
 
 import { User } from '../../interfaces';
-import { UserInfo } from '../generic-components';
+import { UserInfo } from './UserInfo';
+
 
 interface Props {
     userList: User[]

@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import { Navbar, Button, Text, Avatar } from "@nextui-org/react";
 import { useLocation, useRoute } from "wouter";
 import { BiHome } from "react-icons/bi";
+
 import { AiOutlineUserAdd } from "react-icons/ai";
+import { useAppDispatch } from '../../redux/hooks';
+import { setView } from "../../redux/slices/view.slice";
 
 export const Nav = () => {
 
@@ -11,8 +14,9 @@ export const Nav = () => {
     const [location, setLocation] = useLocation();
     const [match, params] = useRoute("/home");
 
+    const dispatch = useAppDispatch();
+
     useEffect(() => {
-        console.log(match);
         setAvatar(generateAvatar());
     }, [active])
 
@@ -46,7 +50,7 @@ export const Nav = () => {
                             shadow={active}
                             bordered={!active}
                             css={{ marginRight: 10 }}
-                            onClick={() => setActive(!active)}
+                            onPress={() => {setActive(!active); dispatch(setView(1))}}
                         >
                             View List
                         </Button>
@@ -57,7 +61,7 @@ export const Nav = () => {
                             color="warning"
                             shadow={!active}
                             bordered={active}
-                            onClick={() => setActive(!active)}
+                            onPress={() => {setActive(!active); dispatch(setView(0))}}
                         >
                             View Cards
                         </Button>}
@@ -70,7 +74,7 @@ export const Nav = () => {
                                 flat
                                 color="success"
                                 icon={<AiOutlineUserAdd />}
-                                onClick={() => setLocation('/user-control')}>
+                                onPress={() => setLocation('/user-control')}>
                                 Create
                             </Button>
                             :
@@ -79,7 +83,7 @@ export const Nav = () => {
                                 color="warning"
                                 flat
                                 icon={<BiHome />}
-                                onClick={() => setLocation('/home')}
+                                onPress={() => setLocation('/home')}
                             >
                                 Go Home
                             </Button>
