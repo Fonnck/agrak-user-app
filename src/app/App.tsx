@@ -39,7 +39,7 @@ function App() {
             <Route path="/home">
               <Home />
             </Route>
-            <Route path="/user-control">
+            <Route path="/user-control/:rest*">
               <UserControl />
             </Route>
             <Route>
